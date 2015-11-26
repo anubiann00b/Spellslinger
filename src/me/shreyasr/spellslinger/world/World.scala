@@ -6,7 +6,16 @@ import scala.util.Random
 
 class World {
 
-  def getTile(destPos: Pos): Tile = tiles(destPos.x)(destPos.y)
+  val tiles = Array.ofDim[Tile](80,24)
+  shuffle()
+
+  def getTile(destPos: Pos): Tile = {
+    if (tiles.indices.contains(destPos.x) && tiles(destPos.x).indices.contains(destPos.y)) {
+      tiles(destPos.x)(destPos.y)
+    } else {
+      Tile.OUT_OF_MAP
+    }
+  }
 
   def shuffle(): Unit = {
     for (i <- 1 to 80) {
@@ -15,7 +24,4 @@ class World {
       }
     }
   }
-
-  val tiles = Array.ofDim[Tile](80,24)
-  shuffle()
 }

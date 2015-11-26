@@ -4,5 +4,5 @@ import asciiPanel.AsciiPanel
 
 abstract class AnimFrame(val millis:Int) {
 
-  def draw(terminal: AsciiPanel): Unit
+  def draw(terminal: AsciiPanel, paint: () => Unit): Unit
 }

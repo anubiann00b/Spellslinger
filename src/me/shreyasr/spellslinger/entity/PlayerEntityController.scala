@@ -9,7 +9,7 @@ import scala.collection.immutable.HashMap
 
 class PlayerEntityController extends EntityController {
 
-  var lastKey = 0
+  @volatile var lastKey = 0
 
   override def act(state: GameState, entity: Entity): Action = {
     val key = lastKey
@@ -22,7 +22,9 @@ class PlayerEntityController extends EntityController {
     }
   }
 
-  def onKeyPress(e: KeyEvent) = { lastKey = e.getKeyCode }
+  def onKeyPress(e: KeyEvent) = {
+    lastKey = e.getKeyCode
+  }
 }
 
 object Player {
