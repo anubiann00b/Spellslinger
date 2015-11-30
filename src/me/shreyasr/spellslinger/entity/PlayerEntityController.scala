@@ -1,6 +1,7 @@
 package me.shreyasr.spellslinger.entity
 
 import java.awt.event.KeyEvent
+import java.util.concurrent.atomic.AtomicInteger
 
 import com.badlogic.ashley.core.Entity
 import me.shreyasr.spellslinger.action.{Action, MoveOutcomeBuilder}
@@ -10,11 +11,10 @@ import scala.collection.immutable.HashMap
 
 class PlayerEntityController(world: World) extends EntityController(world) {
 
-  @volatile var lastKey = 0
+  val lastKey: AtomicInteger = new AtomicInteger(0)
 
   override def act(entity: Entity): Action = {
-    val key = lastKey
-    lastKey = 0
+    val key = lastKey.getAndSet(0)
 
     if (Player.MOVEMENT_MAP.contains(key)) {
       Action(MoveOutcomeBuilder.create(world, Player.MOVEMENT_MAP.get(key).get, Mappers.PosMapper.get(entity)))
@@ -24,7 +24,7 @@ class PlayerEntityController(world: World) extends EntityController(world) {
   }
 
   def onKeyPress(e: KeyEvent) = {
-    lastKey = e.getKeyCode
+    lastKey.set(e.getKeyCode)
   }
 }
 
