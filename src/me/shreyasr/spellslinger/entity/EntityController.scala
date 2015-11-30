@@ -1,9 +1,10 @@
 package me.shreyasr.spellslinger.entity
 
-import me.shreyasr.spellslinger.GameState
+import com.badlogic.ashley.core.Entity
 import me.shreyasr.spellslinger.action.Action
+import me.shreyasr.spellslinger.world.World
 
-abstract class EntityController {
+abstract class EntityController(val world: World) {
 
-  def act(state: GameState, entity: Entity): Action
+  def act(entity: Entity): Action
 }

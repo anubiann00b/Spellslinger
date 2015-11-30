@@ -22,7 +22,7 @@ object Window extends JFrame() with KeyListener {
   pack()
   addKeyListener(this)
 
-  val engine = new Engine(terminal, this.repaint)
+  val engine = new Game(terminal, this.repaint)
 
   // Different thread
   override protected def keyPressed(e: KeyEvent): Unit = {

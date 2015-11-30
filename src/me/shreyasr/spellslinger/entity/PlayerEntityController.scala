@@ -2,21 +2,22 @@ package me.shreyasr.spellslinger.entity
 
 import java.awt.event.KeyEvent
 
-import me.shreyasr.spellslinger.GameState
+import com.badlogic.ashley.core.Entity
 import me.shreyasr.spellslinger.action.{Action, MoveOutcomeBuilder}
+import me.shreyasr.spellslinger.world.World
 
 import scala.collection.immutable.HashMap
 
-class PlayerEntityController extends EntityController {
+class PlayerEntityController(world: World) extends EntityController(world) {
 
   @volatile var lastKey = 0
 
-  override def act(state: GameState, entity: Entity): Action = {
+  override def act(entity: Entity): Action = {
     val key = lastKey
     lastKey = 0
 
     if (Player.MOVEMENT_MAP.contains(key)) {
-      Action(MoveOutcomeBuilder.create(Player.MOVEMENT_MAP.get(key).get, entity))
+      Action(MoveOutcomeBuilder.create(world, Player.MOVEMENT_MAP.get(key).get, Mappers.PosMapper.get(entity)))
     } else {
       Action.WAIT
     }
