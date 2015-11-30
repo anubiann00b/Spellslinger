@@ -1,7 +1,7 @@
-package me.shreyasr.spellslinger.entity
+package me.shreyasr.spellslinger.engine
 
 import com.badlogic.ashley.core.ComponentMapper
-import me.shreyasr.spellslinger.entity.Components._
+import me.shreyasr.spellslinger.engine.Components._
 
 object Mappers {
   val MonsterMapper: ComponentMapper[MonsterComponent] = ComponentMapper.getFor(classOf[MonsterComponent])

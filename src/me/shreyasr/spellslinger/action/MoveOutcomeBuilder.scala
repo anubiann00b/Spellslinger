@@ -1,6 +1,7 @@
 package me.shreyasr.spellslinger.action
 
-import me.shreyasr.spellslinger.entity.Components.PosComponent
+import me.shreyasr.spellslinger.engine.Components
+import Components.PosComponent
 import me.shreyasr.spellslinger.world.World
 
 object MoveOutcomeBuilder {

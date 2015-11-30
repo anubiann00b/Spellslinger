@@ -3,40 +3,34 @@ package me.shreyasr.spellslinger
 import java.awt.event.KeyEvent
 
 import asciiPanel.AsciiPanel
-import com.badlogic.ashley.core
 import com.badlogic.ashley.core.{Engine, Entity, Family}
 import com.badlogic.ashley.utils.ImmutableArray
-import me.shreyasr.spellslinger.engine.{TileRenderSystem, EntityUpdateSystem}
-import me.shreyasr.spellslinger.entity.Components._
-import me.shreyasr.spellslinger.entity.{Mappers, PlayerEntityController}
+import me.shreyasr.spellslinger.engine.Components._
+import me.shreyasr.spellslinger.engine.{EntityUpdateSystem, Mappers}
+import me.shreyasr.spellslinger.entity.{DumbEntityController, PlayerEntityController}
 import me.shreyasr.spellslinger.util.Pos
-import me.shreyasr.spellslinger.world.World
+import me.shreyasr.spellslinger.world.{EntityFactory, World}
 
 import scala.collection.JavaConversions._
 
 class Game(terminal: AsciiPanel, repaint: () => Unit) {
 
+  val engine = new Engine()
   val world = new World()
   val playerEntityController = new PlayerEntityController(world)
 
-  val engine = new Engine()
+  engine.addEntity(EntityFactory.getPlayer(Pos(5,5), playerEntityController))
+  engine.addEntity(EntityFactory.getMonster(Pos(10,10), 'o', new DumbEntityController(world)))
 
-  val playerEntity = new core.Entity()
-  playerEntity.add(new PosComponent(new Pos(5,5)))
-  playerEntity.add(new GlyphComponent('@'))
-  playerEntity.add(new EntityControllerComponent(playerEntityController))
-  playerEntity.add(new MonsterComponent())
-  playerEntity.add(new PlayerComponent())
-  engine.addEntity(playerEntity)
-
-  engine.addSystem(new TileRenderSystem(terminal, world, paint))
   engine.addSystem(new EntityUpdateSystem(terminal, paint))
 
   val entities: ImmutableArray[Entity] = engine.getEntitiesFor(Family.all(classOf[MonsterComponent]).get())
 
   def run(): Unit = {
+    paint()
     while(true) {
       engine.update(1)
+      Thread.sleep(10)
     }
   }
 

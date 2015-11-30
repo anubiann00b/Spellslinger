@@ -1,6 +1,7 @@
-package me.shreyasr.spellslinger.entity
+package me.shreyasr.spellslinger.engine
 
 import com.badlogic.ashley.core.Component
+import me.shreyasr.spellslinger.entity.EntityController
 import me.shreyasr.spellslinger.util.Pos
 
 object Components {

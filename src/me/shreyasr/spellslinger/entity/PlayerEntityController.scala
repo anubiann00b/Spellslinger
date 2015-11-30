@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 import com.badlogic.ashley.core.Entity
 import me.shreyasr.spellslinger.action.{Action, MoveOutcomeBuilder}
+import me.shreyasr.spellslinger.engine.Mappers
 import me.shreyasr.spellslinger.world.World
 
 import scala.collection.immutable.HashMap
@@ -41,6 +42,7 @@ object Player {
     KeyEvent.VK_H -> MoveOutcomeBuilder.W,
     KeyEvent.VK_L -> MoveOutcomeBuilder.E,
     KeyEvent.VK_K -> MoveOutcomeBuilder.N,
-    KeyEvent.VK_J -> MoveOutcomeBuilder.S
+    KeyEvent.VK_J -> MoveOutcomeBuilder.S,
+    KeyEvent.VK_PERIOD -> MoveOutcomeBuilder.NONE
   )
 }
